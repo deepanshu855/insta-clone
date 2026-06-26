@@ -1,0 +1,18 @@
+Authentication => {
+    1. Register
+    2. Login
+    3. Logout (blacklisting)
+    4. OTP based verification (at last)
+}
+
+Post => {
+    1. Create Post
+    2. can see the feed
+    3. like posts
+    4. Save posts
+}
+
+user => {
+    1. Followers
+    2. Following
+}
