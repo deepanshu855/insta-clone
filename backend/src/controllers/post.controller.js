@@ -11,11 +11,12 @@ const client = new ImageKit({
   privateKey: process.env.IMAGEKIT_PRIVATE_KEY, // This is the default and can be omitted
 });
 
+// API POST => /api/post/ : to create post
 const createPostController = async (req, res) => {
   const { caption } = req.body;
 
   if (!req.file) {
-    return res.status(400).send({
+    return res.status(400).json({
       messgae: "Post image is required",
     });
   }
@@ -30,7 +31,7 @@ const createPostController = async (req, res) => {
   const token = req.cookies.token;
 
   if (!token) {
-    return res.status(401).send({
+    return res.status(401).json({
       message: "Unauthorized access, login required",
     });
   }
@@ -41,7 +42,7 @@ const createPostController = async (req, res) => {
   try {
     decoded = jwt.verify(token, process.env.JWT_SECRET);
   } catch (err) {
-    return res.status(409).send({
+    return res.status(409).json({
       message: "Invalid token, Unauthorized access.",
     });
   }
@@ -52,7 +53,7 @@ const createPostController = async (req, res) => {
     postImage: file.url,
   });
 
-  res.status(201).send({
+  res.status(201).json({
     message: "Post created successfully",
     post,
   });

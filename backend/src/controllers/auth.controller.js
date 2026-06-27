@@ -2,6 +2,7 @@ const userModel = require("../models/user.model");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 
+// API POST=> /api/auth/register : this is used to register user
 const registerController = async (req, res) => {
   const { username, email, password, bio, profileImage } = req.body;
   console.log(req.body);
@@ -48,6 +49,7 @@ const registerController = async (req, res) => {
   });
 };
 
+// API POST=> /api/auth/login : this is used to login user
 const loginController = async (req, res) => {
   // Now user can login with either {username} or {email};
   const { username, email, password } = req.body;
