@@ -7,4 +7,7 @@ const postRouter = express.Router();
 // This is the protected route
 postRouter.post("/", postController.createPostController);
 
+// GET Api => /api/post -> user can see their all post.
+postRouter.get("/", postController.getPostController);
+
 module.exports = postRouter;
