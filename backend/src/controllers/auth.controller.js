@@ -35,7 +35,7 @@ const registerController = async (req, res) => {
     expiresIn: "1d",
   });
 
-  res.cookie("Register-token", token);
+  res.cookie("token", token);
 
   res.status(201).json({
     message: "User created successfully.",
@@ -85,7 +85,7 @@ const loginController = async (req, res) => {
     expiresIn: "1d",
   });
 
-  res.cookie("login-token", token);
+  res.cookie("token", token);
 
   res.status(200).json({
     message: "Logged in successfully.",

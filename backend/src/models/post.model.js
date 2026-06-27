@@ -11,7 +11,7 @@ const postSchema = mongoose.Schema({
   },
   // User will store the userId of the user who created the post
   user: {
-    ref: users,
+    ref: "users",
     type: mongoose.Schema.Types.ObjectId,
     required: [true, "UserId is required for creating post"],
   },
