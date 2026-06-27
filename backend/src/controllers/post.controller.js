@@ -59,7 +59,7 @@ const createPostController = async (req, res) => {
   });
 };
 
-// API GET => /api/post : user can see all their posts
+// API GET => /api/post/ : user can see all their posts
 const getPostController = async (req, res) => {
   const token = req.cookies.token;
 
@@ -78,20 +78,65 @@ const getPostController = async (req, res) => {
     });
   }
 
-  const userId=decoded.id;
+  const userId = decoded.id;
 
   // This will return all the posts created by a user with this userId
-  const post= await postModel.find({
-    user:userId
-  })
+  const post = await postModel.find({
+    user: userId,
+  });
 
   return res.status(200).json({
     message: "Posts fetched successfully.",
-    post
-  })
+    post,
+  });
+};
+
+// API GET => /api/post/details/:id => it returns details about the specific post with the id
+const getDetailsPostController = async (req, res) => {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(401).json({
+      message: "Unauthorized access, login required",
+    });
+  }
+
+  let decoded;
+  try {
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
+  } catch (err) {
+    return res.status(401).json({
+      messgae: "Invalid token, Unauthorized access.",
+    });
+  }
+
+  const userId = decoded.id;
+  const { postId } = req.params;
+
+  const post = await postModel.findById(postId);
+
+  if (!post) {
+    return res.status(404).json({
+      message: "Post not found",
+    });
+  }
+
+  const isValidUser = post.user.toString() === userId; // we need to convert to string as they are ObjectId
+
+  if (!isValidUser) {
+    return res.status(403).json({
+      message: "Forbidden content",
+    });
+  }
+
+  res.status(200).json({
+    message: "Post details",
+    post,
+  });
 };
 
 module.exports = {
   createPostController,
   getPostController,
+  getDetailsPostController,
 };
