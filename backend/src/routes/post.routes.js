@@ -1,17 +1,22 @@
 const express = require("express");
 const postController = require("../controllers/post.controller");
+const identifyUser = require("../middlewares/identifyUser");
 
 const postRouter = express.Router();
 
 // All the post routes are protected route
 
 // POST Api => /api/post/ -> used to create post
-postRouter.post("/", postController.createPostController);
+postRouter.post("/", identifyUser, postController.createPostController);
 
 // GET Api => /api/post -> user can see their all post.
-postRouter.get("/", postController.getPostController);
+postRouter.get("/", identifyUser, postController.getPostController);
 
 // GET Api => /api/post/details/:postId -> it returns details about the specific post with the id
-postRouter.get("/details/:postId", postController.getDetailsPostController);
+postRouter.get(
+  "/details/:postId",
+  identifyUser,
+  postController.getDetailsPostController,
+);
 
 module.exports = postRouter;
