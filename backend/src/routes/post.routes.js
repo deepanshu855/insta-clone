@@ -19,4 +19,11 @@ postRouter.get(
   postController.getDetailsPostController,
 );
 
+// POST API => /api/post/like/:postId => likes a post with given postId
+postRouter.post(
+  "/like/:postId",
+  identifyUser,
+  postController.likePostController,
+);
+
 module.exports = postRouter;
