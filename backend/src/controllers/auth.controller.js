@@ -30,7 +30,7 @@ const registerController = async (req, res) => {
     profileImage,
   });
 
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, {
     expiresIn: "1d",
   });
 
@@ -81,7 +81,7 @@ const loginController = async (req, res) => {
     });
   }
 
-  const token = jwt.sign({ id: isUserexists._id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ id: isUserexists._id, username:isUserexists.username }, process.env.JWT_SECRET, {
     expiresIn: "1d",
   });
 
