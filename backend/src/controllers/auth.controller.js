@@ -4,6 +4,11 @@ const jwt = require("jsonwebtoken");
 
 // API POST=> /api/auth/register : this is used to register user
 const registerController = async (req, res) => {
+  if (!req.body) {
+    return res.status(422).json({
+      message: "details not recieved",
+    });
+  }
   const { username, email, password, bio, profileImage } = req.body;
 
   // Now we need to check whether user exists with email or username.
@@ -30,9 +35,13 @@ const registerController = async (req, res) => {
     profileImage,
   });
 
-  const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, {
-    expiresIn: "1d",
-  });
+  const token = jwt.sign(
+    { id: user._id, username: user.username },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "1d",
+    },
+  );
 
   res.cookie("token", token);
 
@@ -49,6 +58,12 @@ const registerController = async (req, res) => {
 
 // API POST=> /api/auth/login : this is used to login user
 const loginController = async (req, res) => {
+  if (!req.body) {
+    return res.status(422).json({
+      message: "login details not recieved",
+    });
+  }
+
   // Now user can login with either {username} or {email};
   const { username, email, password } = req.body;
 
@@ -81,9 +96,13 @@ const loginController = async (req, res) => {
     });
   }
 
-  const token = jwt.sign({ id: isUserexists._id, username:isUserexists.username }, process.env.JWT_SECRET, {
-    expiresIn: "1d",
-  });
+  const token = jwt.sign(
+    { id: isUserexists._id, username: isUserexists.username },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "1d",
+    },
+  );
 
   res.cookie("token", token);
 
