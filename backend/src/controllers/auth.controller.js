@@ -80,7 +80,7 @@ const loginController = async (req, res) => {
   });
 
   if (!isUserexists) {
-    return res.status(409).json({
+    return res.status(404).json({
       message: "User doesn't exist",
     });
   }
@@ -117,7 +117,25 @@ const loginController = async (req, res) => {
   });
 };
 
+const getMeController = async (req, res) => {
+  const userId = req.user.id;
+
+  const user = await userModel.findById(userId);
+
+  if (!user) {
+    return res.status(404).json({
+      message: "user doesn't exist",
+    });
+  }
+
+  res.status(200).json({
+    message: "Get-me user",
+    user,
+  });
+};
+
 module.exports = {
   registerController,
   loginController,
+  getMeController,
 };
