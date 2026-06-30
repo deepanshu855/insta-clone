@@ -12,9 +12,10 @@ const registerController = async (req, res) => {
   const { username, email, password, bio, profileImage } = req.body;
 
   // Now we need to check whether user exists with email or username.
-  const isUser = await userModel.findOne({
-    $or: [{ username }, { email }],
-  }); // or will check in one query that either username or email present or not.
+  const isUser = await userModel
+    .findOne({
+      $or: [{ username }, { email }],
+    }); // or will check in one query that either username or email present or not.
 
   if (isUser) {
     return res.status(409).json({

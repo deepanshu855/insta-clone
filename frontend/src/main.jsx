@@ -4,13 +4,14 @@ import App from "./App.jsx";
 import "./modules/shared/global.scss";
 import { BrowserRouter } from "react-router-dom";
 import AuthProvider from "./modules/auth/AuthProvider.jsx";
+import PostProvider from "./modules/post/PostProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <AuthProvider>
+  <AuthProvider>
+    <PostProvider>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </AuthProvider>
-  </StrictMode>,
+    </PostProvider>
+  </AuthProvider>,
 );

@@ -26,4 +26,7 @@ postRouter.post(
   postController.likePostController,
 );
 
+// GET API => /api/post/feed => it returns the feed
+postRouter.get("/feed", identifyUser, postController.getFeedPostController)
+
 module.exports = postRouter;

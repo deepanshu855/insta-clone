@@ -144,9 +144,21 @@ const likePostController = async (req, res) => {
   });
 };
 
+const getFeedPostController = async (req, res) => {
+  const username = req.user.username;
+
+  const posts = await postModel.find().populate("user", "-password");
+
+  res.status(200).json({
+    message: "Feed fetched successfully",
+    posts,
+  });
+};
+
 module.exports = {
   createPostController,
   getPostController,
   getDetailsPostController,
   likePostController,
+  getFeedPostController,
 };
