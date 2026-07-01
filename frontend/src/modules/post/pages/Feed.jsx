@@ -13,7 +13,7 @@ const Feed = () => {
     return <h1>Loading...</h1>;
   }
 
-  console.log(feed);
+  // console.log(feed);
 
   return (
     <main className="feed-container">

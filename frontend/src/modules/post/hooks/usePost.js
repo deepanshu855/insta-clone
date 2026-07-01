@@ -1,6 +1,6 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { PostContext } from "../PostProvider";
-import { getFeed } from "../services/post.api";
+import { createPost, getFeed } from "../services/post.api";
 
 const usePost = () => {
   const { loading, post, feed, setLoading, setPost, setFeed } =
@@ -10,7 +10,7 @@ const usePost = () => {
     setLoading(true);
     try {
       const response = await getFeed();
-      setFeed(response.post);
+      setFeed(response.posts.reverse());
     } catch (error) {
       console.log(error);
     } finally {
@@ -18,7 +18,24 @@ const usePost = () => {
     }
   };
 
-  return { post, feed, loading, handleFeed };
+  const handleCreatePost = async (image, caption) => {
+    setLoading(true);
+    try {
+      const response = await createPost(image, caption);
+      setFeed([response.post, ...feed]);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // We need to hydrate feed
+  useEffect(() => {
+    handleFeed();
+  }, []);
+
+  return { post, feed, loading, handleFeed, handleCreatePost };
 };
 
 export default usePost;

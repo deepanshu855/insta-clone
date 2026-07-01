@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/post.scss";
 
-const Post = ({user, post}) => {
+const Post = ({ user, post }) => {
   return (
     <div className="post">
       <div className="post-header">
@@ -15,16 +15,18 @@ const Post = ({user, post}) => {
       </div>
       <div className="icons">
         <div className="left">
-          <i className="ri-poker-hearts-line"></i>
+          {post.isLiked ? (
+            <i className="ri-poker-hearts-fill"></i>
+          ) : (
+            <i className="ri-poker-hearts-line"></i>
+          )}
           <i className="ri-share-forward-line"></i>
         </div>
         <div className="right">
           <i className="ri-bookmark-line"></i>
         </div>
       </div>
-      <p>
-        {post.caption}
-      </p>
+      <p>{post.caption}</p>
     </div>
   );
 };

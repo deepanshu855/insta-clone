@@ -3,12 +3,14 @@ import Login from "../modules/auth/pages/Login";
 import Register from "../modules/auth/pages/Register";
 import { Route, Routes } from "react-router-dom";
 import Feed from "../modules/post/pages/Feed";
+import CreatePost from "../modules/post/pages/CreatePost";
 
 const AuthRoutes = () => {
   return (
     <>
       <Routes>
         <Route path="/" element={<Feed />} />
+        <Route path="/create-post" element={<CreatePost />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
